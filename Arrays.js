@@ -42,3 +42,31 @@ console.log(checkPermute('aba', 'aab'));
 console.log(checkPermute('aba', 'aaba'));
 console.log(checkPermute('aba', 'aa'));
 
+//Q3
+//Write a method to replace all spaces in a string with '%20'. You may assume that the string has sufficient space at the end to hold the additional characters, and that you are given the "true" length of the string.
+
+function urlify(str, length){
+  const strArr = str.split('')
+  const pointer = 0;
+  
+  while(pointer < strArr.length){
+   if(strArr[pointer] === ' '){
+    for(let i = str.length - 1; i > pointer + 3; i--){
+     strArr[i] === str[i - 2] 
+    }
+     strArr[pointer] = '%'
+     strArr[pointer+1] = '2'
+     strArr[pointer+2] = '0'
+     console.log(strArr, strArr.length);
+   }
+    pointer++
+  }
+   // if character is a space, move remainder chars by two
+  // replace following three chars with '%20'
+  return strArr.join('');
+};
+console.log(urlify('Mr John Smith    ', 13))
+
+
+
+
