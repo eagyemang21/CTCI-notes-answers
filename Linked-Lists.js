@@ -1,3 +1,9 @@
+/*
+//Linked List --> chain of nodes, where each node contains information (like data), and a pointer to the next node
+
+-used to implement file systems, hash tables, & adjacency lists
+
+*/
 //we must make a Node class in order to create the data
 class Node {
   constructor(value, next = null) {
