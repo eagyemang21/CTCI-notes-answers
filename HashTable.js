@@ -1,4 +1,3 @@
-
 /*
 // class HashTable{
    
@@ -41,51 +40,76 @@
 
 // }
 
-//creating a table of buckets with size of 127 
+//creating a table of buckets with size of 127
 class HashTable {
-    constructor(){
-        //creating amount of buckets
-        this.table = new Array(127);
-        this.size = 0;
-    }
-    //create a hash function, which will accept a key value and transform it to an index
+  constructor() {
+    //creating amount of buckets
+    this.table = new Array(127);
+    this.size = 0;
+  }
+  //create a hash function, which will accept a key value and transform it to an index
 
-    // a private class with underscore
-    //will return a number between 0 and 127
-    _hash(key){
-        let hash = 0;
-        //for loop over keys
-        for(let i = 0; i < key.length; i++){
-            hash += key.charCodeAt(i)
+  // a private class with underscore
+  //will return a number between 0 and 127
+  _hash(key) {
+    let hash = 0;
+    //for loop over keys
+    for (let i = 0; i < key.length; i++) {
+      hash += key.charCodeAt(i);
+    }
+    //use modulo operator to make sure we don't exceed bucket size
+    return hash % this.table.length;
+  }
+
+  //set will take the key and value for parameters
+  set(key, value) {
+    //key & value pair are assigned to table at specific index
+    const index = this._hash(key);
+    this.table[index] = [key, value];
+    //size property will increment by 1
+    this.size++;
+  }
+
+  //will retrieve a value with the key in the parameter
+  //will return key/value pair back or undefined if there is no key value pair stored @ specific index
+  get(key) {
+    //will use hash method once again to retrieve table's index
+    const target = this._hash(key);
+    if (this.table[target]) {
+      //for loop
+      for (let i = 0; i < this.table.length; i++) {
+        if (this.table[target][i][0]) {
+          return this.table[target][i][1];
         }
-        //use modulo operator to make sure we don't exceed bucket size
-        return hash % this.table.length;
+      }
     }
+    return undefined;
+  }
 
-    //set will take the key and value for parameters
-    set(key, value){
-        //key & value pair are assigned to table at specific index
-        const index = this._hash(key);
-        this.table[index] = [key, value];
-        //size property will increment by 1
-        this.size++;
-    }
+  remove(key) {
+    const index = this._hash(key);
 
-    //will retrieve a value with the key in the parameter
-    //will return key/value pair back or undefined if there is no key value pair stored @ specific index
-    get(key){
-        //will use hash method once again to retrieve table's index
-        const target = this._hash(key);
-        if (this.table[target]){
-            //for loop
-            for(let i = 0; i < this.table.length; i++){
-                if(this.table[target][i][0]){
-                    return this.table[target][i][1]
-                }
-            }
+    if (this.table[index] && this.table[index].length) {
+      for (let i = 0; i < this.table.length; i++) {
+        if (this.table[index][i][0] === key) {
+          this.table[index].splice(i, 1);
+          this.size--;
+          return true;
         }
-        return undefined;
+      }
+    } else {
+      return false;
     }
+  }
+
+  display() {
+    this.table.forEach((values, index) => {
+      const chainedValues = values.map(
+        ([key, value]) => `[ ${key}: ${value} ]`
+      );
+      console.log(`${index}: ${chainedValues}`);
+    });
+  }
 }
 
 //handling a collision
