@@ -84,7 +84,7 @@ class HashTable {
                 }
             }
         }
-        return undefined
+        return undefined;
     }
 }
 
