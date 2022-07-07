@@ -251,5 +251,29 @@ mergeSort([6, 1, 23, 4, 2, 3]); // [1, 2, 3, 4, 6, 23]
 //A stable sort is one that’s guaranteed not to reorder elements with identical keys.
 
 /*
-
+-Count Sort : It can be done in O(k+n) since it doesn't compare values. Only works for numbers and given a certain range.
+- Works by counting occurrences of each element in the array. Once they are counted, the new array can be created using those occurrences.
 */
+//Implementation using JS object:
+const countSort = (arr) =>{
+  let hash = {}
+  let countArr = []
+
+  for(let i = 0; i < arr.length; i++){
+    if(!hash[arr[i]]){
+      hash[arr[i]] = 1;
+    }else{
+      hash[array[i]]++
+    }
+  }  
+  for(let key in hash){
+    //for any num of the element, add it to the array
+    for(let i = 0; i < hash[key]; i++){
+      countArr.push(parseInt(key))
+    }
+  }
+  return countArr
+}
+//Time Complexity: O(k+n)
+//Space Complexity: O(k)
+//use count when you are sorting ints with a limited range
